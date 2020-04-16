@@ -2,17 +2,15 @@ package com.learn.learnmvvm
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.learn.learnmvvm.network.HttpClient
-import com.learn.learnmvvm.network.dataSource.weatherNetworkDataSourceImpl
+import com.learn.learnmvvm.network.dataSource.WeatherNetworkDataSourceImpl
 import com.learn.learnmvvm.network.interceptor.ConnectivityInterceptorImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this,navController)
 
         val request = HttpClient(ConnectivityInterceptorImpl(this))
-        val weatherNetworkDataSourceImpl = weatherNetworkDataSourceImpl(request)
+        val weatherNetworkDataSourceImpl = WeatherNetworkDataSourceImpl(request)
 
         weatherNetworkDataSourceImpl.downloadCurrentWeather.observe(this, Observer {
             datacuaca.text = it.toString()
